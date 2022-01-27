@@ -1,7 +1,7 @@
-name: "VA_First_Project"
-title: "My Website"
+name: "Visual Analytics Module"
+title: "Homepage"
 description: |
-  My Website
+  This website shows all the work that was done by me during my time in Visual Analytics class.
 output_dir: "_site"
 navbar:
   right:
@@ -13,7 +13,7 @@ navbar:
     - text: "Take-home Exercise"
       menu:
       - text: "Take-home Exercise 1"
-        href: "TH_Ex/TH_Ex01/TH_Ex01.html"
+        href: "TH_Ex/Take-home Ex01/Take-Home-Ex01.html"
     - text: "Dataviz Makeover"
       menu:
       - text: "Dataviz 1"

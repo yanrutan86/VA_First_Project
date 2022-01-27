@@ -1,15 +1,13 @@
 ---
-title: "Visual Analytics"
+title: "ISSS608: Visual Analytics and Application"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  Assignments and Exercises Showcase
 site: distill::distill_website
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
 ```
 
+Welcome to my homepage! This is where I will publish all my assignments and exercises done for Visual Analytics and Application module.

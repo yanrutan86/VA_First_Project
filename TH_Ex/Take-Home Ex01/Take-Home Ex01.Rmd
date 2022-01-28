@@ -4,7 +4,7 @@ description: |
   Create a Pareto Chart using the Superstore-2021.xls data and an age-sex pyramid using the Singapore Residents by Planning Area / Subzone, Age Group, Sex and Type of Dwelling, June 2021 dataset.
 author:
   - name: Tan Yan Ru 
-    url: https://example.com/norajones
+    # url: https://example.com/norajones
     # affiliation: Spacely Sprockets
     # affiliation_url: https://example.com/spacelysprokets
 date: "`r Sys.Date()`"

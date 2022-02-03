@@ -144,7 +144,7 @@ pop_count$`PopTotal` <- ifelse(pop_count$Sex == 'Males',
 
 # 3. Plot the Charts
 
-Now that the data has been prepared for plotting, I will start by creating the ggplot for to show the age-sex pyramid for all planning areas. Finally, ggplotly will be used to animate the plot. It also provides the tooltips function to show the *Age Group* and *Population Count*.
+Now that the data has been prepared for plotting, I will start by creating the ggplot to show the age-sex pyramid for all planning areas. Finally, ggplotly will be used to animate the plot. It also provides the tooltips function to show the *Age Group* and *Population Count*.
 
 
 ```{r,fig.show='animate',out.height='50%'}

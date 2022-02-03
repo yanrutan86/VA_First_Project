@@ -1,7 +1,6 @@
 ---
-title: "ISSS608: Visual Analytics and Application"
-description: |
-  Assignments and Exercises Showcase
+title: "Data Visualisation using R"
+
 site: distill::distill_website
 ---
 
@@ -10,4 +9,4 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-Welcome to my homepage! This is where I will publish all my assignments and exercises done for Visual Analytics and Application module.
+Welcome to my homepage! 

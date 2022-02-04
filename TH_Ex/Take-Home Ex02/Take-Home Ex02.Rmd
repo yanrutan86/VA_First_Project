@@ -146,32 +146,54 @@ pop_count$`PopTotal` <- ifelse(pop_count$Sex == 'Males',
 
 Now that the data has been prepared for plotting, I will start by creating the ggplot to show the age-sex pyramid for all planning areas. Finally, ggplotly will be used to animate the plot. It also provides the tooltips function to show the *Age Group* and *Population Count*.
 
+As the final number of planning areas chosen is 21, I will reduce it to 10 planning areas in total, 5 mature estates and 5 non-mature estates, to see the population demographics for the two types of estates seen in Singapore. For mature estates, Ang Mo Kio, Tampines, Jurong West, Bedok and Woodlands, have been chosen and for the non-mature estates, Punggol, Seng Kang, Sembawang, Hougang and Bukit Panjang will be used.
 
-```{r,fig.show='animate',out.height='50%'}
+**Note: For an age-sex pyramid, the youngest age group is at the bottom and oldest is at the top of the pyramid*
+
+```{r}
 age_order <- c("0_to_4","5_to_9","10_to_14","15_to_19",
              "20_to_24","25_to_29","30_to_34","35_to_39",
              "40_to_44","45_to_49","50_to_54","55_to_59",
              "60_to_64","65_to_69","70_to_74","75_to_79",
              "80_to_84","85_to_89","90_and_over")
 
-p <-ggplot(pop_count, aes(x=factor(AG, levels = age_order),
+mature_PA = c('Ang Mo Kio', 'Tampines', 'Jurong West', 'Bedok', 'Woodlands')
+
+non_mature_PA = c('Punggol', 'Sengkang', 'Sembawang', 'Hougang','Bukit Panjang')
+
+```
+
+### 3.1 Age-Sex Pyramid for Mature Planning Areas
+
+```{r,fig.show='animate',out.height='60%'}
+
+filtered_data <- filter(pop_count, pop_count$PA %in% mature_PA)
+
+p <-ggplot(filtered_data, aes(x=factor(AG, levels = age_order),
                       y= PopTotal,
                       fill= Sex,
                       frame = Year,
                       text = paste("Age Group: ",AG, '<br>', 'Pop Count: ', abs(PopTotal)))) +
-  geom_col(data = subset(pop_count, Sex == 'Males'), position = 'identity', fill='skyblue') +
-  geom_col(data = subset(pop_count, Sex == 'Females'), position = 'identity', fill='pink') +
+  geom_col(data = subset(filtered_data, Sex == 'Males'), position = 'identity', fill='skyblue') +
+  geom_col(data = subset(filtered_data, Sex == 'Females'), position = 'identity', fill='pink') +
   scale_y_continuous(labels=NULL) +
   scale_x_discrete(labels=NULL) +
   coord_flip() +
-  facet_wrap(~PA, scales = 'free_y', ncol = 5) +
+  facet_wrap(~PA, scales = 'free_y', ncol = 3) +
   theme(strip.background =element_rect(fill="whitesmoke", colour = 'black'),
         panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(colour = "black", fill=NA, size=1)) + 
-  labs(title = 'Population Pyramid of Singapore by Planning Area', subtitle = 'Change in Population by Age Group and Sex', x = 'Age Group', y = 'Population Count')
+        panel.border = element_rect(colour = "black", fill=NA, size=1),
+        panel.spacing.y = unit(1.5, "lines")) + 
+  labs(x = 'Age Group', y = 'Population Count')
 
 ggplotly(p, tooltip = c('text')) %>% 
-  layout(autosize = F, width = 900, height = 1500) %>%
+  layout(autosize = F, width = 800, height = 800, 
+         title = list(text = paste0('Population Pyramid of Singapore In Mature Estates',
+                                    '<br>',
+                                    '<sup>',
+                                    'Shows changes in Population Demographic by Age Group and Sex from 2000-2020',
+                                    '</sup>')),
+         margin = list(t = 90)) %>%
   animation_opts(
     frame= 1000, transition = 1000, easing = "linear", redraw = FALSE 
   ) %>% 
@@ -181,8 +203,53 @@ ggplotly(p, tooltip = c('text')) %>%
 
 ```
 
+Looking at the 5 mature estates population demographic, in the early 2000s, the population demographic showed younger families living in these estates as shown by the wider bottom and middle part of the age-sex pyramid. However, as the years progress, it can be seen that the top of the pyramid starts to widen and the base becomes narrower. This indicates a growing aging population in these estates. We can also see the widening of the bars going upwards. The total population count for these estates have also remained more or less the same throughout the years as we do not see and expanding chart when compared to the non-mature estates.
+
+We will now look at how the Non-Mature estates' population demographic has changed through 2000 to 2020.
+
+### 3.2 Age-Sex Pyramid for Non-Mature Planning Areas
+
+```{r,fig.show='animate',out.height='70%'}
+
+filtered_data_2 <- filter(pop_count, pop_count$PA %in% non_mature_PA)
+
+p <-ggplot(filtered_data_2, aes(x=factor(AG, levels = age_order),
+                      y= PopTotal,
+                      fill= Sex,
+                      frame = Year,
+                      text = paste("Age Group: ",AG, '<br>', 'Pop Count: ', abs(PopTotal)))) +
+  geom_col(data = subset(filtered_data_2, Sex == 'Males'), position = 'identity', fill='skyblue') +
+  geom_col(data = subset(filtered_data_2, Sex == 'Females'), position = 'identity', fill='pink') +
+  scale_y_continuous(labels=NULL) +
+  scale_x_discrete(labels=NULL) +
+  coord_flip() +
+  facet_wrap(~PA, scales = 'free_y', ncol = 3) +
+  theme(strip.background =element_rect(fill="whitesmoke", colour = 'black'),
+        panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(colour = "black", fill=NA, size=1),
+        panel.spacing.y = unit(1.5, "lines")) + 
+  labs(x = 'Age Group', y = 'Population Count')
+
+ggplotly(p, tooltip = c('text')) %>% 
+  layout(autosize = F, width = 800, height = 800, 
+         title = list(text = paste0('Population Pyramid of Singapore In Non-Mature Estates',
+                                    '<br>',
+                                    '<sup>',
+                                    'Shows changes in Population Demographic by Age Group and Sex from 2000-2020',
+                                    '</sup>')),
+         margin = list(t = 90)) %>%
+  animation_opts(
+    frame= 1000, transition = 1000, easing = "linear", redraw = FALSE 
+  ) %>% 
+  animation_slider(
+    currentvalue = list(prefix = "YEAR: ", font = list(color="Black"))
+  )
+
+```
+For the non-mature estates, the population count for each age group starts out small and the young and middle aged group grows throughout the years. This is due to young families moving into these new non-mature estates. This growth in population is the greatest in Punggol, Bukit Panjang, Sengkang and Sembawang which are where a great number of new BTO flats have been built. As for Hougang, it is an older estate as compared to the other 4 as can be seen from its larger population numbers in 2000. It is also starting to show the trend seen in mature estates.
+
 # Conclusion
 
-From the animation, it can be seen that the changes in population demographics in mature estates like Ang Mo Kio, Bedok, Tampines have a growing aging population while new estates like Punggol and Seng Kang have a growing younger population. 
+Doing an animation for the mature and non-mature estates gives us more in depth information on how the population demographic changes and what these changes are like. The population demographic for the non-mature estates now might start to show the same trend as the mature estates as the residents in these areas start to age since the current mature estates were consider new estates then in 2020.
 
-From this take-home exercise, using R to build animation can be a little frustrating at the beginning. However, after working with it for awhile, it becomes clearer what some of the parameters in the ggplotly function works and how to link the ggplots to plotly.
+From this take-home exercise, using R to build animation can be a little frustrating at the beginning. However, after working with it for awhile, it becomes clearer how some of the parameters in the ggplotly function works and how to link the ggplots to plotly.

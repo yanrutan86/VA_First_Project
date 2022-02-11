@@ -19,5 +19,5 @@ navbar:
     - text: "Dataviz Makeover"
       menu:
       - text: "Dataviz 1"
-        href: Dataviz1.html
+        href: "DataViz/Dataviz_01/DataViz_01.html"
 output: distill::distill_article

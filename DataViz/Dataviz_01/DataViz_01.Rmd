@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 # 1. Introduction
 
-For the DataViz assignment, the following data visualisation will be given a makeover to improve its clarity and aesthetics.
+For the DataViz assignment, the following data visualisation will be given a makeover to improve its clarity and aesthetics. The dataset used is from [**Singapore's Ministry of Manpower**](https://stats.mom.gov.sg/Pages/LabourForceTimeSeries.aspx). 
 
 ![Final Data Visualisation](images/Original_Visualisation.png)
 
@@ -72,7 +72,7 @@ The below alternative Data Visualisation addresses the issues that were brought 
 
 Link to Tableau Public: [Final Data Visualisation](https://public.tableau.com/app/profile/tan.yan.ru/viz/Dataviz-01/Dashboard1)
 
-![Final Data Visualisation](images/Final_Visualisation.png)
+![Final Data Visualisation](images/Final_Visualisation.png){width=120%}
 
 # 4. Observations
 

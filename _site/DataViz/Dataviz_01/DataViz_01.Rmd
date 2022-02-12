@@ -18,15 +18,15 @@ knitr::opts_chunk$set(
   message = FALSE)
 ```
 
-## 1. Introduction
+# 1. Introduction
 
 For the DataViz assignment, the following data visualisation will be given a makeover to improve its clarity and aesthetics.
 
 ![Final Data Visualisation](images/Original_Visualisation.png)
 
-## 2. Evaluation of graph
+# 2. Evaluation of graph
 
-# 2.1 Clarity
+## 2.1 Clarity
 
 ### 2.1.1 Generic Title and Missing Subtitle
 
@@ -44,7 +44,7 @@ The plots have been arranged to look like there is an increasing trend in the la
 
 Separate line charts make it difficult to see any comparison or differences between each line trend. Placing all the line trends in one chart but using outstanding colours to highlight those of interest would be better.
 
-# 2.2 Aesthetics
+## 2.2 Aesthetics
 
 ### 2.2.1 Age Group Labels
 
@@ -62,7 +62,7 @@ The label for the Y-axis uses the short-form of Labour Force Participation Rate 
 
 The colours used in the plots do not help to identify any information for viewers and seems to be only used for aesthetic purposes. As the line trend throughout the years for each age group is of interest, a proper line plot should be used instead of an area chart to emphasize on the trend. 
 
-## 3. Alternative Data Visualisation
+# 3. Alternative Data Visualisation
 
 ![Data Visualisation Sketch](images/Sketch.png){width=50%}
 
@@ -74,13 +74,13 @@ Link to Tableau Public: [Final Data Visualisation](https://public.tableau.com/ap
 
 ![Final Data Visualisation](images/Final_Visualisation.png)
 
-## 4. Observations
+# 4. Observations
 
 Based on the line trend for the different age groups from 2010 to 2021, there has been a steady upward trend in the participation rate for people who are 55 and above while the younger age group has a relatively constant participation rate. The largest increase in participation rate percentage points between 2010 and 2021 is from the age group 65 to 69. This group of people are at the retirement and re-employment age. The increase could be due to Singapore's government policies to increase retirement and re-employment age to support older people who still wish to continue working. There is also a downward trend seen for the participation rate in age group 20 to 24 which are the group of people that are either have just graduated from Polytechnic or are studying in University. Looking at the line trend for all plots, there is a shift in an older labour force as the participation rate for people below 55 is has a smaller increase in percentage points as compared to those above 55.
 
-## 5. Preparation of Data and Visualisation
+# 5. Preparation of Data and Visualisation
 
-# 5.1 Data Preparation using Tableau Prep Builder
+## 5.1 Data Preparation using Tableau Prep Builder
 
 Before using the Tableau Prep Builder to clean and prepare the data, row numbers have to be added to the excel sheet to allow for easier extraction of the rows for the different *Sex* in the dataset.
 
@@ -170,7 +170,7 @@ To add steps to the flow, click the *+* sign next to the icons as shown below.
 
 ![Output File](images/data_prep/Output_File.png)
 
-# 5.2 Preparation of Data Visualisation
+## 5.2 Preparation of Data Visualisation
 
 Below explains how to build the plots in Tableau. 
 

@@ -1,0 +1,138 @@
+---
+title: "Multivariate Analysis"
+description: |
+  Study the different methods to visualise Multivariate Analysis
+author:
+  - name: Tan Yan Ru
+    affiliation: MITB, Singapore Management University
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# 1. Install and Launch Packages Required
+
+```{r}
+packages = c('corrplot', 'tidyverse', 'ggstatsplot', 'ggcorrplot')
+
+for(p in packages){library
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+  library(p, character.only = T)
+}
+```
+
+# 2. Import and Prepare Data Set
+
+```{r}
+wine <- read_csv('data/wine_quality.csv')
+```
+
+# 3. Build Correlation Matrix: Using *pairs()* Method
+
+## 3.1 Building Basic Correlation Matrix
+
+Read all data from columns 1 to 11
+
+```{r, echo=FALSE, eval=TRUE, fig.height=7, fig.width=7}
+pairs(wine[,1:11])
+```
+
+As the top half and bottom half are the same, we will just need to show either the upper half or lower half of the matrix.
+
+Below shows the method to show bottom half of the matrix.
+
+```{r, echo=FALSE, eval=TRUE, fig.height=7, fig.width=7}
+pairs(wine[,1:11], upper.panel = NULL)
+```
+
+Below shows the method to show upper half of the matrix.
+
+```{r, echo=FALSE, eval=TRUE, fig.height=7, fig.width=7}
+pairs(wine[,1:11], lower.panel = NULL)
+```
+
+Change the upper panel to other visualisation method.
+
+```{r, echo=FALSE, eval=TRUE, fig.height=7, fig.width=7}
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor, ...) {
+usr <- par("usr")
+on.exit(par(usr))
+par(usr = c(0, 1, 0, 1))
+r <- abs(cor(x, y, use="complete.obs"))
+txt <- format(c(r, 0.123456789), digits=digits)[1]
+txt <- paste(prefix, txt, sep="")
+if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+text(0.5, 0.5, txt, cex = cex.cor * (1 + r) / 2)
+}
+
+pairs(wine[,1:11], upper.panel = panel.cor)
+```
+
+## 3.2 Using ggstatsplot, ggcormat Package
+
+### 3.2.1 Basic Plot
+
+```{r, fig.height=7, fig.width=7}
+ggstatsplot::ggcorrmat(
+  data = wine, 
+  cor.vars = 1:11
+)
+```
+
+### 3.2.1 Include Title, Sub-title
+
+```{r, fig.height=7, fig.width=7}
+ggstatsplot::ggcorrmat(
+  data = wine, 
+  cor.vars = 1:11,
+  ggcorrplot.args = list(outline.color = "black", 
+                         hc.order = TRUE,
+                         tl.cex = 10),
+  title    = "Correlogram for wine dataset",
+  subtitle = "Four pairs are no significant at p < 0.05"
+)
+```
+
+### 3.2.1 Multiple Plots
+
+```{r, fig.height=15, fig.width=15}
+grouped_ggcorrmat(
+  data = wine,
+  cor.vars = 1:11,
+  grouping.var = type,
+  type = "robust",
+  p.adjust.method = "holm",
+  plotgrid.args = list(ncol = 2),
+  ggcorrplot.args = list(outline.color = "black", 
+                         hc.order = TRUE,
+                         tl.cex = 10),
+  annotation.args = list(
+    tag_levels = "a",
+    title = "Correlogram for wine dataset",
+    subtitle = "The measures are: alcohol, sulphates, fixed acidity, citric acid, chlorides, residual sugar, density, free sulfur dioxide and volatile acidity",
+    caption = "Dataset: UCI Machine Learning Repository"
+  )
+)
+```
+
+## 3.3 Using **corrplot** Package
+
+### 3.3.1 Prepare Data for corrplot
+
+Need to compute the correlation matrix of wine data frame
+
+```{r}
+wine.cor <- cor(wine[, 1:11])
+```
+
+Next, plot the corrplot()
+
+```{r}
+corrplot(wine.cor)
+```
+

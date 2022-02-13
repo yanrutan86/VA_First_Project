@@ -157,7 +157,7 @@ To add steps to the flow, click the *+* sign next to the icons as shown below.
 3. Input the name of the file.
 4. Run flow when done to get the output file that will be used for creating the visualisation.
 
-![Output File](images/data_prep/Output_File.png)
+![Output File](images/data_prep/Output_File.png){width=70%}
 
 ## 5.2 Preparation of Data Visualisation
 

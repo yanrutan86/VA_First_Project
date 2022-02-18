@@ -172,7 +172,7 @@ p
 
 Placing the ggplot in ggplotly will allow tooltips to be shown when mouse is hovering over the points.
 
-```{r, out.height='100%'}
+```{r}
 ggplotly(p, tooltip = c('label', 'x', 'y')) %>%
   layout(margin = list(b=100,t=80),
         title = list(text = paste0('Comparison of Order Returns by State',

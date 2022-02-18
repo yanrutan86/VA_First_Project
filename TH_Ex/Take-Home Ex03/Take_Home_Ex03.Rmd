@@ -157,11 +157,12 @@ p <- ggplot(final_table, aes(x=Total, y=rate)) +
   annotate('text', x=-100, y=0.4, label='95%', size=3, colour='grey40') +
   annotate('text', x=150, y=0.4, label='99%', size=3, colour='grey40') +
   annotate('text', x=3200, y=0.2, label=round(fit_mean, digits = 3), size=3, colour='grey40') +
-  ggtitle('Cumulative Return Rate by Cumulative Total Orders Number by State') +
+  labs(title = 'Comparison of Order Returns by State', subtitle = 'Cumulative Return Rate by Cumulative Total Orders Number by State',
+       caption = 'Data Source: Superstore-2021.xls') +
   xlab('Cumulative Total Orders') +
   ylab('Cumulative Return Rate') +
   theme_light() +
-  theme(plot.title = element_text(size = 12))
+  theme(plot.title = element_text(size = 14))
 
 p
 
@@ -171,8 +172,19 @@ p
 
 Placing the ggplot in ggplotly will allow tooltips to be shown when mouse is hovering over the points.
 
-```{r}
-ggplotly(p, tooltip = c('label', 'x', 'y'))
+```{r, out.height='80%'}
+ggplotly(p, tooltip = c('label', 'x', 'y')) %>%
+  layout(margin = list(b=80,t=80),
+        title = list(text = paste0('Comparison of Order Returns by State',
+                                    '<br>',
+                                    '<sup>',
+                                    'Cumulative Return Rate by Cumulative Total Orders Number by State',
+                                    '</sup>')),
+         annotations = list(x=1, y=-0.25, text = '<i>Data Source: Superstore-2021.xls</i>',
+                            xref='paper', yref='paper', showarrow=F,
+                            xanchor='right', yanchor='auto',
+                            font = list(size=12))
+         )
 ```
 
 # 6. Conclusion

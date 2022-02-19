@@ -124,7 +124,7 @@ final_table <- final_table %>%
 fit_mean <- weighted.mean(final_table$rate, 1/final_table$rate.se^2)
 ```
 
-### 3.6 Calculate the lower and upper limits of the 95% and 99% confidence interval
+### 3.6 Calculate the lower and upper limits of the 95% and 99.9% confidence interval
 
 The 95% and 99% confidence interval will be calculated so that it can be plot out in the funnel plot.
 
@@ -155,7 +155,7 @@ p <- ggplot(final_table, aes(x=Total, y=rate)) +
              colour = 'grey40') + 
   coord_cartesian(ylim=c(0,0.6)) + 
   annotate('text', x=-100, y=0.4, label='95%', size=3, colour='grey40') +
-  annotate('text', x=150, y=0.4, label='99%', size=3, colour='grey40') +
+  annotate('text', x=150, y=0.4, label='99.9%', size=3, colour='grey40') +
   annotate('text', x=3200, y=0.2, label=round(fit_mean, digits = 3), size=3, colour='grey40') +
   labs(title = 'Comparison of Order Returns by State', subtitle = 'Cumulative Return Rate by Cumulative Total Orders Number by State',
        caption = 'Data Source: Superstore-2021.xls') +
@@ -189,4 +189,4 @@ ggplotly(p, tooltip = c('label', 'x', 'y')) %>%
 
 # 6. Conclusion
 
-The funnel plot makes is possible to deduce which states have a high return rate based on the mean return rate for all states. States that have points outside of the 95% or 99% confidence interval means that statistically, these states have a higher return rate when compared to the orders from all stores in the U.S. This provides an unbiased comparison on the return rates by each state.
+The funnel plot makes is possible to deduce which states have a high return rate based on the mean return rate for all states. There are about 12 states that have points outside of the 99.9% confidence interval means that statistically, these states have a higher return rate when compared to the orders from all stores in the U.S. This provides an unbiased comparison on the return rates by each state.

@@ -189,4 +189,4 @@ ggplotly(p, tooltip = c('label', 'x', 'y')) %>%
 
 # 6. Conclusion
 
-The funnel plot makes is possible to deduce which states have a high return rate based on the mean return rate for all states. There are about 12 states that have points outside of the 99.9% confidence interval means that statistically, these states have a higher return rate when compared to the orders from all stores in the U.S. This provides an unbiased comparison on the return rates by each state.
+The funnel plot makes is possible to deduce which states have a high return rate based on the mean return rate for all states. There are about 12 states that have points outside of the 99.9% confidence interval means that statistically, these states have a higher return rate when compared to the return rates from all stores in the U.S. This provides an unbiased comparison on the return rates by each state.

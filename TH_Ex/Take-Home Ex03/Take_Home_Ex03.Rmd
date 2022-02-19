@@ -155,7 +155,7 @@ p <- ggplot(final_table, aes(x=Total, y=rate)) +
              colour = 'grey40') + 
   coord_cartesian(ylim=c(0,0.6)) + 
   annotate('text', x=-100, y=0.4, label='95%', size=3, colour='grey40') +
-  annotate('text', x=150, y=0.4, label='99.9%', size=3, colour='grey40') +
+  annotate('text', x=160, y=0.4, label='99.9%', size=3, colour='grey40') +
   annotate('text', x=3200, y=0.2, label=round(fit_mean, digits = 3), size=3, colour='grey40') +
   labs(title = 'Comparison of Order Returns by State', subtitle = 'Cumulative Return Rate by Cumulative Total Orders Number by State',
        caption = 'Data Source: Superstore-2021.xls') +

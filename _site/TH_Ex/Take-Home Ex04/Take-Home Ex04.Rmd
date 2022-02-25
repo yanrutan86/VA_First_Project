@@ -1,0 +1,127 @@
+---
+title: "Take Home Exercise 4"
+description: |
+  To study the impact of COVID-19 on the stock prices of the top 40 companies in Singapore by market capitalisation
+author:
+  - name: Tan Yan Ru 
+    affiliation: MITB, Singapore Management University
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(  
+  fig.retina = 3,
+  echo = TRUE,
+  eval = TRUE,
+  warning = FALSE,
+  message = FALSE)
+```
+
+# 1. Introduction
+
+In this exercise, the aim is to see how COVID-19 has affected the top 40 companies in Singapore by market capitalisation. As COVID-19 started around the start of 2020 and has been on-going till now, the data sets to be extracted will start from January 2020 till 2021 December to see how the stock prices of the selected 40 companies changes during surges in COVID-19 in Singapore. Data will be pulled from Yahoo Finance.
+
+# 2. Getting Started
+
+### 2.1 Install and Import Libraries
+
+```{r}
+packages = c('ggplot2', 'tidyverse', 'plotly', 'tidyquant', 'ggHoriPlot', 'rmarkdown', 'ggthemes')
+
+for(p in packages){library
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+  library(p, character.only = T)
+}
+```
+
+# 3. Get data from Yahoo Finance
+
+### 3.1 Getting the Symbol for each company
+
+The top 40 companies in Singapore by market capitalisation can be found from [**here**](https://companiesmarketcap.com/singapore/largest-companies-in-singapore-by-market-cap/). The information can be downloaded into a CSV file from the website. Below is the code to read in the CSV file to get the Symbol of the companies and save them as a list in a variable to use for extracting the data from Yahoo Finance later.
+
+```{r}
+companies <- read_csv('data/companiesmarketcap.csv')
+```
+
+### 3.2 Get data from Yahoo Finance
+
+*Tidyquant* has a function, *tq_get()*, which is able to pull data from several sources including Yahoo Finance, FRED, etc. For getting the open, close, low, high, volume and adjusted stock prices, it will be pulling from Yahoo Finance.
+
+```{r}
+date_from <- '2020-01-01'
+date_to <- '2021-12-31'
+
+multi_stocks <- tq_get(companies$Symbol, get = 'stock.prices', from = date_from, to = date_to)
+
+```
+
+To ensure that the stock prices data period is daily, *tq_transmute()* function is used to convert the time series period. This function can be used to change the period of the time series data to weekly, monthly and yearly as well. 
+The historical stock prices that will be used is the adjusted stock price as this is the amended closing price to take into account the stock's value after any corporate actions. Hence, it is included in the *select* parameter in *tq_transmute()* function to only extract this column out.
+
+```{r}
+period_type = 'days'
+
+multi_stocks_daily <- multi_stocks %>%
+  group_by(symbol) %>%
+  tq_transmute(select = adjusted, mutate_fun = to.period, period = period_type) %>%
+  ungroup()
+
+paged_table(multi_stocks_daily)
+```
+
+As the actual stock prices for the different stocks vary greatly, normalising the stock prices based on the minimum and maximum prices for each stock is needed for comparison between all stocks. Formula used to normalise the stock prices by symbol is *(x - min(x))/(max(x) - min(x))* where x is the adjusted stock prices for the particular company by using a *group_by* function.
+
+```{r}
+multi_stocks_daily <- multi_stocks_daily %>%
+  group_by(symbol) %>%
+  mutate(Nor=(adjusted - min(adjusted))/(max(adjusted) - min(adjusted))) %>%
+  ungroup()
+```
+
+### 3.3 Create Cutpoint and Origin point for Horizon Plot
+
+The cutpoints and origin point is required to determine which colour code to assign. The *range* function returns the minimum and maximum values of the selected column. The origin for the plot can be calculated by taking the minimum and maximum adjusted stock prices and divide it by 2 to get the median. 6 cutpoints will also be calculated for use in the horizon plot.
+
+```{r}
+ori <- sum(range(multi_stocks_daily$Nor))/2
+sca <- seq(range(multi_stocks_daily$Nor)[1],
+           range(multi_stocks_daily$Nor)[2],
+           length.out = 7)[-4]
+round(ori, 2)
+round(sca, 2)
+```
+
+# 4. Plot the Horizon Graph
+
+The *geom_horizon()* function in ggHoriPlot will be used to plot the Horizon Plot.
+
+```{r, fig.height=10, fig.width=10}
+ggplot(multi_stocks_daily) +
+  geom_horizon(aes(date, Nor, fill= ..Cutpoints..), origin = ori, 
+               horizonscale = sca) +
+  facet_grid(symbol~., scales = 'free_y') +
+  theme_few() +
+  scale_fill_hcl(palette = 'RdBu', reverse = T) +
+  theme(
+    panel.spacing.y = unit(0, 'lines'),
+    strip.text.y = element_text(size=10, angle=0, hjust=0),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.border = element_blank()
+  ) +
+  ggtitle('COVID-19 impact on Companies in Singapore', subtitle = 'Normalised Stock Prices of Top 40 Companies in Singapore by Market Capitalisation')
+```
+
+# 5. Observation
+
+During the first peak COVID-19 in March 2020 where the lockdown in Singapore happened, stock prices dropped for most of the companies. However, most of them recovered in 2021 although there are a few companies like SINGF, C09.SI, TRIT where the colours are dark blue at the end of 2021 did not managed to fully recover their stock prices to before pre-COVID period.
+
+# 6. References
+
+[https://giniceseah.netlify.app/posts/2021-06-18-scraping-of-financial-dataset/#tidyquant-package](https://giniceseah.netlify.app/posts/2021-06-18-scraping-of-financial-dataset/#tidyquant-package)
+

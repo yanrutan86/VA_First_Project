@@ -67,7 +67,7 @@ period_type = 'days'
 
 multi_stocks_daily <- multi_stocks %>%
   group_by(symbol) %>%
-  tq_transmute(select = adjusted, mutate_fun = to.period, period = period_type) %>%
+  tq_transmute(select = adjusted, , mutate_fun = to.period, period = period_type) %>%
   ungroup()
 
 paged_table(multi_stocks_daily)
@@ -97,10 +97,10 @@ round(sca, 2)
 
 # 4. Plot the Horizon Graph
 
-The *geom_horizon()* function in ggHoriPlot will be used to plot the Horizon Plot.
+The *geom_horizon()* function in ggHoriPlot will be used to plot the Horizon Plot.The axis text and tick marks for y-coordinate will be removed for readibility by changing them to blank using the *element_blank()* function.
 
 ```{r, fig.height=10, fig.width=10}
-ggplot(multi_stocks_daily) +
+p <-ggplot(multi_stocks_daily) +
   geom_horizon(aes(date, Nor, fill= ..Cutpoints..), origin = ori, 
                horizonscale = sca) +
   facet_grid(symbol~., scales = 'free_y') +
@@ -115,6 +115,14 @@ ggplot(multi_stocks_daily) +
     panel.border = element_blank()
   ) +
   ggtitle('COVID-19 impact on Companies in Singapore', subtitle = 'Normalised Stock Prices of Top 40 Companies in Singapore by Market Capitalisation')
+
+p
+```
+
+ggHoriPlot is not supported by ggplotly for interactivity.
+
+```{r}
+ggplotly(p)
 ```
 
 # 5. Observation

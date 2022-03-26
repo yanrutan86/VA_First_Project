@@ -111,13 +111,13 @@ For the alternative data visualisation, the focus will be to fix the issues on c
 
 Below shows the sketch of the visualisation that will be done.
 
-![Visualisation Dashboard Sketch](image/Sketch.png){width=70%}
+![Visualisation Dashboard Sketch](image/Sketch.png)
 
 ### 3.2 Final Visualisation
 
-The final visualisation dashboard is shown below. It can also be found [**here**](https://public.tableau.com/app/profile/tskam/viz/prototype1_16468762782120/Dashboard1)
+The final visualisation dashboard is shown below. It can also be found [**here**](https://public.tableau.com/app/profile/tan.yan.ru/viz/Datazix_02_test/Dashboard1)
 
-![Final Visualisation Dashboard](image/FinalVisualisation.png){width=70%}
+![Final Visualisation Dashboard](image/FinalVisualisation.png)
 
 # 4. Observations
 
@@ -142,11 +142,11 @@ Below shows the total bus trips from and to Kovan throughout the day.
 1. Open Tableau and select *'Spatial file'* from the main page as shown above.
 2. Browse to where the spatial file has been saved in and choose *'MP14_SUBZONE_WEB_PL.shp'* file
 
-![Get origin destination file into Tableau](image/Bring Data In 2.png){width=50%}
+![Get origin destination file into Tableau](image/Bring Data In 2.png){width=80%}
 
 3. Drag the file *'origin_destination_bus__SZ_202201.csv'* into Tableau. Follow the blue arrow as shown above.
 
-![Link origin destination file with map file](image/Link data 1.png){width=50%}
+![Link origin destination file with map file](image/Link data 1.png){width=70%}
 
 4. Drag the *'origin_destination_bus__SZ_202201.csv'* and link it to the map file as shown by the blue arrow above. A red triangle with an exclamation mark will be shown, which means the relationship between the map file and data set needs to be set.
 
@@ -156,7 +156,7 @@ Below shows the total bus trips from and to Kovan throughout the day.
 
 ### 5.2 Create Total Bus Trips Barcharts
 
-![Pull columns to fields for barchart](image/Trips_From2.png){width=50%}
+![Pull columns to fields for barchart](image/Trips_From2.png){width=80%}
 
 1. Pull all the columns into the fields as shown above. From the above initial plot, it can be seen that the NULL option is still in the filter selection and there is only 1 bar due to the *Time per Hour* being summed up. We will have to change the attribute for *Time per Hour*, change the colours for weekdays and weekends/holidays and remove the *NULL* option in filter
 
@@ -164,7 +164,7 @@ Below shows the total bus trips from and to Kovan throughout the day.
 
 2. Click on the small arrow button at the Columns > Time Per Hour and select *Dimension*. The graph will change as shown below.
 
-![Change in Graph after changing Time per Hour to Dimension](image/GraphChangeTimeOfHour.png){width=50%}
+![Change in Graph after changing Time per Hour to Dimension](image/GraphChangeTimeOfHour.png){width=80%}
 
 3. To allocate different colours for the *Day Type*, pull the *Day Type* column to *Color* under *Marks*.
 
@@ -182,7 +182,7 @@ Below shows the total bus trips from and to Kovan throughout the day.
 
 The graph will look like below after making the above changes.
 
-![Change in Graph after editing](image/ChangeGraphTimePerHour.png){width=50%}
+![Change in Graph after editing](image/ChangeGraphTimePerHour.png){width=80%}
 
 6. To remove the NULL option in filter, we will have to create a set and select all options except *NULL*. Click on the small arrow in *Origin Sz* column as shown below > go to *Create* and select *Set*. In *Create Set*, select *All* first, untick *NULL* and then click *OK*. A new column called *Origiz Sz Set* will be created.
 
@@ -200,7 +200,7 @@ The graph will look like below after making the above changes.
 
 The graph will look as shown below after making the changes.
 
-![Change in Graph after Changing Filter](image/GraphChangeFilter.png){width=50%}
+![Change in Graph after Changing Filter](image/GraphChangeFilter.png){width=80%}
 
 9. We will now add a reference line for user to see the average number of trips throughout the day. To add the reference line, right click on the *Total Trips* axis and select *Add Reference Line*.
 
@@ -220,7 +220,7 @@ The graph will look as shown below after making the changes.
 
 13. Finally, we will change the Main title and Subtitle of the chart to *'Total Bus Trips from < Origin Sz > Shows the total bus trip trends from a subzone for weekdays and weekends/holidays throughout the day'* Final chart is shown as below.
 
-![Final Total Bus Trips from Origin Sz](image/FinalBarchart.png){width=50%}
+![Final Total Bus Trips from Origin Sz](image/FinalBarchart.png){width=80%}
 
 14. Repeat steps 1-13 for Destination Sz to create the barchart for *'Total Bus Trips from < Destination Sz >'*. Just create the Set for* Destination Sz* and pull the new column *Destination Sz Set* to Filters.
 
@@ -228,13 +228,13 @@ The graph will look as shown below after making the changes.
 
 1. To show the map of Singapore in tableau, pull the *Geometry* column to the plot as shown below.
 
-![Map of Singapore](image/Geometry.png){width=50%}
+![Map of Singapore](image/Geometry.png){width=80%}
 
 2. We will have to create the adjacency matrix for both weekday and weekend/holiday. The following steps will be done for weekday. For weekend/holiday, a new sheet will be duplicated but the *Day Type* will be selected as Weekend/Holiday instead of Weekday.
 
 3. To create the adjacency matrix, we will first pull the *Total Trips* into *Color* so as to use colours to differentiate how many trips are going out from the subzone. The lighter the colour, the lesser the number of bus trips. Next, pull *Destination Sz* into *Detail* to show the names of each subzone on the map in Tooltips.
 
-![Add Total Trips and Destination subzone name](image/MapAddTotalTripDestination.png){width=50%}
+![Add Total Trips and Destination subzone name](image/MapAddTotalTripDestination.png){width=80%}
 
 4. Pull *Day Type* column into Filters. A filter prompt will appear. Select *Weekday* and click OK.
 
@@ -254,7 +254,7 @@ In the Table Calculation box, change *Calculation Type* to *'Percent of Total'* 
 
 7.To allow users to filter by subzone, *Origin Sz Set* which was created earlier to remove *NULL* option will be dragged into the *Filters* section. Click on the arrow of *Origin Sz Set* under *Filters* and select *Show Filter*. Once filter appears on the right most, click the arrow of the shown filter and select *Single Value (List)* to restrict it to show only 1 choice.
 
-![Show Origin Subzone Filter](image/MapOriginSzSetFilter.png){width=70%}
+![Show Origin Subzone Filter](image/MapOriginSzSetFilter.png){width=80%}
 
 8. Duplicate the current worksheet to create the adjacency matrix for weekend/holiday. This time, change the *Day Type* to weekend/holiday and colour scheme from *Blue* to *Orange*
 
@@ -270,7 +270,7 @@ Select both adjacency matrix worksheet and the Trips from worksheet that uses th
 
 1. Pull all the necessary plots from the worksheet into the dashboard and arranged them according to the picture below.
 
-![Initial Dashboard](image/CreateDashboard.png){width=50%}
+![Initial Dashboard](image/CreateDashboard.png){width=80%}
 
 2. To show the legend for the weekend/holiday adjacency matrix, click on the adjacency matrix for weekend/holiday, click on the small arrow, go to *Legends* and click *'Color Legend (% of Total Total Trips)'*. Rearrange the legend as shown above.
 
